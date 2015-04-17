@@ -40,7 +40,7 @@ public class FacetWsClient extends EbeyeClient{
             System.out.println(i);
         }
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=domain_source:%s&facetfields=%s&facetcount=%s&size=0&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=domain_source:(%s)&facetfields=%s&facetcount=%s&size=0&format=JSON",
                 config.getProtocol(), config.getHostName(), parentdomain,domain,facetField,count);
 
         return this.restTemplate.getForObject(url, FacetList.class);
