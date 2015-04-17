@@ -5,13 +5,15 @@ import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
 
 /**
+ * This class contain all the methods related with the domain queries, including the number of entries, etc.
+ *
  * @author ypriverol
  */
 public class DomainWsClient extends EbeyeClient {
 
 
     /**
-     * Default constructor for Archive clients
+     * Default constructor for Ws clients
      *
      * @param config
      */
