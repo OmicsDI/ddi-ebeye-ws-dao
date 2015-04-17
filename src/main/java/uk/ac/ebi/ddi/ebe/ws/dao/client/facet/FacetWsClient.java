@@ -32,16 +32,16 @@ public class FacetWsClient extends EbeyeClient{
 
         String domain = "";
         if(domains != null && domains.length > 0){
-            domain = domains[0];
-            for (int i = 1; i < domains.length - 2; i++){
-                domain = domain + " " + Constans.OR + " " + domains[i];
+            int i = 0;
+            for (String domainValue: domains){
+                domain = (i == 0)? domainValue: domain + " " + Constans.OR + " " + domainValue;
+                i++;
             }
-            domain = domain + " " + Constans.OR + " " + domains[domains.length - 1];
+            System.out.println(i);
         }
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=domain_source:%s&facetfields=%s&facetcount=%s&size=0&format=JSON",
                 config.getProtocol(), config.getHostName(), parentdomain,domain,facetField,count);
-
 
         return this.restTemplate.getForObject(url, FacetList.class);
     }
