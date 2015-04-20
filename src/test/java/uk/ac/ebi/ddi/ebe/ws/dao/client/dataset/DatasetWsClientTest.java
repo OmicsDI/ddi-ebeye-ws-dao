@@ -32,7 +32,7 @@ public class DatasetWsClientTest {
     @Test
     public void testGetDatasets() throws Exception {
         String[] fields = {"name,description"};
-        QueryResult pride = datasetWsClient.getDatasets("omics", "human", fields,0, 20,10);
+        QueryResult pride = datasetWsClient.getDatasets("pride", "human", fields,0 , 20,10);
         assertNotNull(pride.getCount() > 1);
     }
 }

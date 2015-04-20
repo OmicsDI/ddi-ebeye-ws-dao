@@ -44,8 +44,8 @@ public class DatasetWsClient extends EbeyeClient{
             }
         }
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size);
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
+                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount);
 
 
         return this.restTemplate.getForObject(url, QueryResult.class);
