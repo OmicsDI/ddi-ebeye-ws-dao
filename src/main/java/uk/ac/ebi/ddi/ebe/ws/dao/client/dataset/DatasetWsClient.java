@@ -2,8 +2,8 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.dataset;
 
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.result.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
 /**
  * @author Yasset Perez-Riverol ypriverol
@@ -49,6 +49,35 @@ public class DatasetWsClient extends EbeyeClient{
 
 
         return this.restTemplate.getForObject(url, QueryResult.class);
+    }
+
+    /**
+     * This function returns the most frequently terms for an specific field in the database or repository
+     * @param domainName The domain name that will be used
+     * @param field      The specific field for the most frequently terms.
+     * @param exclusionTerms List of terms to be excluded
+     * @param size number of terms to be retrieved
+     * @return TermResult
+     */
+    public TermResult getFrequentlyTerms(String domainName, String field, String[] exclusionTerms, int size){
+
+        String exclusionWord = "";
+        if(exclusionTerms != null && exclusionTerms.length > 0){
+            int count = 0;
+            for(String value: exclusionTerms){
+                if(count == exclusionTerms.length - 1)
+                    exclusionWord = exclusionWord + value;
+                else
+                    exclusionWord = exclusionWord + value + ",";
+                count++;
+            }
+        }
+
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/topterms/%s?size=%s&exclusions=%s&format=JSON",
+                config.getProtocol(), config.getHostName(), domainName, field, size, exclusionWord);
+
+
+        return this.restTemplate.getForObject(url, TermResult.class);
     }
 
 }

@@ -1,4 +1,4 @@
-package uk.ac.ebi.ddi.ebe.ws.dao.model.result;
+package uk.ac.ebi.ddi.ebe.ws.dao.model.dataset;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
