@@ -43,9 +43,17 @@ public class DatasetWsClientTest {
 
         datasetWsClient = new DatasetWsClient(ebeyeWsProd);
 
-        String[] exclusion_words = {"a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is", "it",
+        String[] exclusion_words = {"1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h",
+                "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+                "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is", "it",
                 "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with",
-                "protein", "proteomics", "proteomic", "proteome", "proteomes", "mass", "proteins", "lc", "ms", "based", "from", "using", "during", "LC-MS", "LC-MS/MS","reveals","1","2","as","non","c" };
+                "able","about","across","after","all","almost","also","am","among","an","and","any","are","as","at","be","because","been","can","could","dear","did",
+                "do","does","either","else","ever","every","for","from","get","got","had","has","have","he","her","hers","him","how","however","i","in","into",
+                "its","just","least","let","like","likely","may","me","might","most","must","neither","no","nor","not","of","off",
+                "often","on","only","or","other","our","own","rather","should","since","so","some","than","that","the","their","them," +
+                "then","there","these","they","this","tis","to","too","us","was","we","were","what","when","where","which","while",
+                "who","whom","why","will","with","would","yet","you","your",
+                "protein", "proteomics", "proteomic", "proteome", "proteomes", "mass", "proteins", "lc", "ms", "based", "from", "using", "during", "LC-MS", "LC-MS/MS","reveals","as","non","data"};
 
         TermResult pride = datasetWsClient.getFrequentlyTerms("pride", "description", exclusion_words, 100);
         assertNotNull(pride != null);
