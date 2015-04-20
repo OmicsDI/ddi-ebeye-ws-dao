@@ -2,6 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.model.facet;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Facet;
 
 /**
  * @author Yasset Perez-Riverol yperez@ebi.ac.uk
