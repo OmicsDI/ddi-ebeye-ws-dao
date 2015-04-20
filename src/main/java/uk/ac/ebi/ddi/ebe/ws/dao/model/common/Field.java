@@ -10,40 +10,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Field {
 
-    @JsonProperty("id")
-    String id = null;
-
     @JsonProperty("values")
-    Value[] values = null;
+    String[] values = null;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Value[] getValues() {
+    public String[] getValues() {
         return values;
     }
 
-    public void setValues(Value[] values) {
+    public void setValues(String[] values) {
         this.values = values;
-    }
-
-    public class Value{
-
-        @JsonProperty("value")
-        String value = null;
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
     }
 
 

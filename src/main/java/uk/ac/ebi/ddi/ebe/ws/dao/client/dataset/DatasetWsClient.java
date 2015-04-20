@@ -3,6 +3,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.dataset;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.result.QueryResult;
 
 /**
  * @author Yasset Perez-Riverol ypriverol
@@ -29,7 +30,7 @@ public class DatasetWsClient extends EbeyeClient{
      * @param facetCount Face count the number of facets by entry.
      * @return A list of entries and the facets included
      */
-    public DomainList getDatasets(String domainName, String query, String[] fields, int start, int size, int facetCount){
+    public QueryResult getDatasets(String domainName, String query, String[] fields, int start, int size, int facetCount){
 
         String finalFields = "";
         if(fields != null && fields.length > 0){
@@ -47,7 +48,7 @@ public class DatasetWsClient extends EbeyeClient{
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size);
 
 
-        return this.restTemplate.getForObject(url, DomainList.class);
+        return this.restTemplate.getForObject(url, QueryResult.class);
     }
 
 }

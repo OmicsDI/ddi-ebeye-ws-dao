@@ -1,7 +1,12 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.model.common;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Yasset Perez-Riverol ypriverol
@@ -17,7 +22,15 @@ public class Entry {
     String source = null;
 
     @JsonProperty("fields")
-    Field[] fields;
+    Map<String, String[]> fields = new HashMap<String, String[]>();
+
+    public Map<String, String[]> getFields() {
+        return fields;
+    }
+
+    public void setFields(Map<String, String[]> fields) {
+        this.fields = fields;
+    }
 
     public String getId() {
         return id;
@@ -33,13 +46,5 @@ public class Entry {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public Field[] getFields() {
-        return fields;
-    }
-
-    public void setFields(Field[] fields) {
-        this.fields = fields;
     }
 }
