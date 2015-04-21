@@ -5,6 +5,8 @@ import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
+import java.util.Set;
+
 /**
  * @author Yasset Perez-Riverol ypriverol
  */
@@ -61,7 +63,7 @@ public class DatasetWsClient extends EbeyeClient{
      * @param ids   the set of ids to be retrieved.
      * @return QueryResult
      */
-    public QueryResult getDatasetsById(String domainName, String[] fields, String[] ids){
+    public QueryResult getDatasetsById(String domainName, String[] fields, Set<String> ids){
 
         String finalFields = "";
         if(fields != null && fields.length > 0){
@@ -76,10 +78,10 @@ public class DatasetWsClient extends EbeyeClient{
         }
 
         String finalIds = "";
-        if(ids != null && ids.length > 0){
+        if(ids != null && ids.size() > 0){
             int count = 0;
             for(String value: ids){
-                if(count == ids.length - 1)
+                if(count == ids.size() - 1)
                     finalIds = finalIds + value;
                 else
                     finalIds = finalIds + value + ",";

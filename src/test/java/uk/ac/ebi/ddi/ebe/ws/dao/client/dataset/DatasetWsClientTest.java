@@ -10,6 +10,11 @@ import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 @ContextConfiguration(locations = {"/test-context.xml"})
@@ -64,7 +69,8 @@ public class DatasetWsClientTest {
     public void testGetDatasetsById() throws Exception {
         String[] fields = {"name"};
         String[] ids    = {"9606","9432"};
-        QueryResult pride = datasetWsClient.getDatasetsById("taxonomy", fields, ids);
+        Set<String> finalIds = new HashSet<String>(Arrays.asList(ids));
+        QueryResult pride = datasetWsClient.getDatasetsById("taxonomy", fields, finalIds);
         assertNotNull(pride.getCount() > 1);
     }
 }
