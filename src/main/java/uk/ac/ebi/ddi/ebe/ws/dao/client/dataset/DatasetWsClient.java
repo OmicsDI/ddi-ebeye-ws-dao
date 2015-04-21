@@ -30,7 +30,7 @@ public class DatasetWsClient extends EbeyeClient{
      * @param facetCount Face count the number of facets by entry.
      * @return A list of entries and the facets included
      */
-    public QueryResult getDatasets(String domainName, String query, String[] fields, int start, int size, int facetCount){
+    public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield, String order, int start, int size, int facetCount){
 
         String finalFields = "";
         if(fields != null && fields.length > 0){
@@ -44,11 +44,55 @@ public class DatasetWsClient extends EbeyeClient{
             }
         }
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount);
+        sortfield = (sortfield == null)? "":sortfield;
+        order     = (order == null)? "ascending":order;
+
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
+                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
 
 
         return this.restTemplate.getForObject(url, QueryResult.class);
+    }
+
+    /**
+     * This query retrieve the specific entries using a set of identifiers from an specific domain
+     * @param domainName domain
+     * @param fields fields to be retrieved from the domain for each specific id
+     * @param ids   the set of ids to be retrieved.
+     * @return QueryResult
+     */
+    public QueryResult getDatasetsById(String domainName, String[] fields, String[] ids){
+
+        String finalFields = "";
+        if(fields != null && fields.length > 0){
+            int count = 0;
+            for(String value: fields){
+                if(count == fields.length - 1)
+                    finalFields = finalFields + value;
+                else
+                    finalFields = finalFields + value + ",";
+                count++;
+            }
+        }
+
+        String finalIds = "";
+        if(ids != null && ids.length > 0){
+            int count = 0;
+            for(String value: ids){
+                if(count == ids.length - 1)
+                    finalIds = finalIds + value;
+                else
+                    finalIds = finalIds + value + ",";
+                count++;
+            }
+        }
+
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=JSON",
+                config.getProtocol(), config.getHostName(), domainName, finalIds,  finalFields, finalFields);
+
+
+        return this.restTemplate.getForObject(url, QueryResult.class);
+
     }
 
     /**

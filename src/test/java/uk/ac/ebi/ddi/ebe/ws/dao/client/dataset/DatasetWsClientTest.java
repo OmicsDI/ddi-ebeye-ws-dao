@@ -34,7 +34,7 @@ public class DatasetWsClientTest {
     @Test
     public void testGetDatasets() throws Exception {
         String[] fields = {"name,description"};
-        QueryResult pride = datasetWsClient.getDatasets("pride", "human", fields,0 , 20,10);
+        QueryResult pride = datasetWsClient.getDatasets("pride", "human", fields, null, null, 0 , 20,10);
         assertNotNull(pride.getCount() > 1);
     }
 
@@ -58,5 +58,13 @@ public class DatasetWsClientTest {
         TermResult pride = datasetWsClient.getFrequentlyTerms("pride", "description", exclusion_words, 100);
         assertNotNull(pride != null);
 
+    }
+
+    @Test
+    public void testGetDatasetsById() throws Exception {
+        String[] fields = {"name"};
+        String[] ids    = {"9606","9432"};
+        QueryResult pride = datasetWsClient.getDatasetsById("taxonomy", fields, ids);
+        assertNotNull(pride.getCount() > 1);
     }
 }
