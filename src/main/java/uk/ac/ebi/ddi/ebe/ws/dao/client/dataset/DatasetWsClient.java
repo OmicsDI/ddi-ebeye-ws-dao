@@ -1,5 +1,7 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client.dataset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
@@ -7,11 +9,13 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
 import java.util.Set;
 
+
 /**
  * @author Yasset Perez-Riverol ypriverol
  */
 public class DatasetWsClient extends EbeyeClient{
 
+    private static final Logger logger = LoggerFactory.getLogger(DatasetWsClient.class);
 
     /**
      * Default constructor for Ws clients
@@ -51,7 +55,8 @@ public class DatasetWsClient extends EbeyeClient{
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
-
+        //Todo: Needs to be removed in the future, this is for debugging
+        logger.debug(url);
 
         return this.restTemplate.getForObject(url, QueryResult.class);
     }

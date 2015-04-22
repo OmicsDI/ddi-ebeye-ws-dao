@@ -1,5 +1,7 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client.facet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
@@ -12,6 +14,7 @@ import uk.ac.ebi.ddi.ebe.ws.dao.utils.Constans;
 
 public class FacetWsClient extends EbeyeClient{
 
+    private static final Logger logger = LoggerFactory.getLogger(FacetWsClient.class);
     /**
      * Default constructor for Ws clients
      *
@@ -42,6 +45,9 @@ public class FacetWsClient extends EbeyeClient{
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=domain_source:(%s)&facetfields=%s&facetcount=%s&size=0&format=JSON",
                 config.getProtocol(), config.getHostName(), parentdomain,domain,facetField,count);
+
+        //Todo: Needs to be removed in the future, this is for debugging
+        logger.debug(url);
 
         return this.restTemplate.getForObject(url, FacetList.class);
     }

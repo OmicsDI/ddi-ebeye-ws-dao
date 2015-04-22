@@ -1,5 +1,7 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client.domain;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
@@ -11,7 +13,7 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
  */
 public class DomainWsClient extends EbeyeClient {
 
-
+    private static final Logger logger = LoggerFactory.getLogger(DomainWsClient.class);
     /**
      * Default constructor for Ws clients
      *
@@ -31,7 +33,8 @@ public class DomainWsClient extends EbeyeClient {
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?format=JSON",
                 config.getProtocol(), config.getHostName(), domainName);
 
-
+        //Todo: Needs to be removed in the future, this is for debugging
+        logger.debug(url);
         return this.restTemplate.getForObject(url, DomainList.class);
     }
 
