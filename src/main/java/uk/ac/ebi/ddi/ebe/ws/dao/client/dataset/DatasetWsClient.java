@@ -124,7 +124,7 @@ public class DatasetWsClient extends EbeyeClient{
             }
         }
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/topterms/%s?size=%s&exclusions=%s&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/topterms/%s?excludesets=omics_stopwords&size=%s&excludes=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, field, size, exclusionWord);
 
 
