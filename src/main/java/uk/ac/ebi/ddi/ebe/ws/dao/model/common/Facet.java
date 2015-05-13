@@ -16,6 +16,9 @@ public class Facet {
     @JsonProperty("label")
     String label = null;
 
+    @JsonProperty("total")
+    Integer total = null;
+
     @JsonProperty("facetValues")
     FacetValue[] facetValues = null;
 
@@ -37,6 +40,14 @@ public class Facet {
 
     public FacetValue[] getFacetValues() {
         return facetValues;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public void setFacetValues(FacetValue[] facetValues) {

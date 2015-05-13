@@ -8,6 +8,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.config;
 public class EbeyeWsConfigDev extends AbstractEbeyeWsConfig {
 
     public EbeyeWsConfigDev() {
-        super("http", "ash-20.ebi.ac.uk:8080");
+        super("http", "ash-1.ebi.ac.uk:8080");
     }
 }

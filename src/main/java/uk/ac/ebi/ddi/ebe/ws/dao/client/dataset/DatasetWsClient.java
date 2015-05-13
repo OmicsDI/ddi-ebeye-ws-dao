@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.SimilarResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
 import java.util.Set;
@@ -38,17 +39,7 @@ public class DatasetWsClient extends EbeyeClient{
      */
     public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield, String order, int start, int size, int facetCount){
 
-        String finalFields = "";
-        if(fields != null && fields.length > 0){
-            int count = 0;
-            for(String value: fields){
-                if(count == fields.length - 1)
-                    finalFields = finalFields + value;
-                else
-                    finalFields = finalFields + value + ",";
-                count++;
-            }
-        }
+        String finalFields = getConcatenatedField(fields);
 
         sortfield = (sortfield == null)? "":sortfield;
         order     = (order == null)? "ascending":order;
@@ -70,17 +61,7 @@ public class DatasetWsClient extends EbeyeClient{
      */
     public QueryResult getDatasetsById(String domainName, String[] fields, Set<String> ids){
 
-        String finalFields = "";
-        if(fields != null && fields.length > 0){
-            int count = 0;
-            for(String value: fields){
-                if(count == fields.length - 1)
-                    finalFields = finalFields + value;
-                else
-                    finalFields = finalFields + value + ",";
-                count++;
-            }
-        }
+        String finalFields = getConcatenatedField(fields);
 
         String finalIds = "";
         if(ids != null && ids.size() > 0){
@@ -129,6 +110,34 @@ public class DatasetWsClient extends EbeyeClient{
 
 
         return this.restTemplate.getForObject(url, TermResult.class);
+    }
+
+    public SimilarResult getSimilarProjects(String domainName, String id, String[] fields){
+
+        String finalFields = getConcatenatedField(fields);
+
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s/morelikethis?mltfields=%s&excludesets=omics_stopwords&format=JSON",
+                config.getProtocol(), config.getHostName(), domainName, id,  finalFields);
+
+
+        return this.restTemplate.getForObject(url, SimilarResult.class);
+
+    }
+
+    private static String getConcatenatedField(String[] fields){
+
+        String finalFields = "";
+        if(fields != null && fields.length > 0){
+            int count = 0;
+            for(String value: fields){
+                if(count == fields.length - 1)
+                    finalFields = finalFields + value;
+                else
+                    finalFields = finalFields + value + ",";
+                count++;
+            }
+        }
+        return finalFields;
     }
 
 }

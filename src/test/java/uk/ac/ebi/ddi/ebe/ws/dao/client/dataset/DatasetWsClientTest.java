@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.SimilarResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
 import java.util.Arrays;
@@ -72,5 +73,15 @@ public class DatasetWsClientTest {
         Set<String> finalIds = new HashSet<String>(Arrays.asList(ids));
         QueryResult pride = datasetWsClient.getDatasetsById("taxonomy", fields, finalIds);
         assertNotNull(pride.getCount() > 1);
+    }
+
+    @Test
+    public void testGetSimilarProjects() throws Exception {
+        String id = "PXD001005";
+        String domainName = "pride";
+        String[] fields = {"name", "description"};
+        SimilarResult results = datasetWsClient.getSimilarProjects(domainName, id, fields);
+        assertNotNull(results.getEntries().length > 0);
+
     }
 }
