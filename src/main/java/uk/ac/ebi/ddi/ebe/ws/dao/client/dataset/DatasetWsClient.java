@@ -48,6 +48,7 @@ public class DatasetWsClient extends EbeyeClient{
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
+        System.out.println(url);
 
         return this.restTemplate.getForObject(url, QueryResult.class);
     }
