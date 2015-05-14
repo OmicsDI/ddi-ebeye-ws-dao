@@ -7,6 +7,6 @@
     <bean id="ebeyeWsConfig" class="uk.ac.ebi.ddi.ebe.ws.dao.config.EbeyeWsConfigDev">
     </bean>
 
-    <bean id="ebeyeWsProd" class="uk.ac.ebi.ddi.ebe.ws.dao.config.EbeyeWsConfigProd"></bean>
+    <bean id="ebeyeWsProd" class="uk.ac.ebi.ddi.ebe.ws.dao.config.EbeyeWsConfigDev"></bean>
 
 </beans>

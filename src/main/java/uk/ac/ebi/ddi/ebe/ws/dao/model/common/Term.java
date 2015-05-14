@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Term {
 
     @JsonProperty("text")
-    String text = null;
+    String text;
 
     @JsonProperty("docFreq")
-    String frecuency = null;
+    String frequency;
 
     public String getText() {
         return text;
@@ -24,11 +24,11 @@ public class Term {
         this.text = text;
     }
 
-    public String getFrecuency() {
-        return frecuency;
+    public String getFrequency() {
+        return frequency;
     }
 
-    public void setFrecuency(String frecuency) {
-        this.frecuency = frecuency;
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
 }

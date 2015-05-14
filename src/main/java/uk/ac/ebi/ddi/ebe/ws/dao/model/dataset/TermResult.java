@@ -15,6 +15,9 @@ public class TermResult {
     @JsonProperty("topTerms")
     Term[] terms;
 
+    @JsonProperty("totalTermCount")
+    int totalTermCount;
+
     public Term[] getTerms() {
         return terms;
     }
@@ -22,4 +25,5 @@ public class TermResult {
     public void setTerms(Term[] terms) {
         this.terms = terms;
     }
+
 }
