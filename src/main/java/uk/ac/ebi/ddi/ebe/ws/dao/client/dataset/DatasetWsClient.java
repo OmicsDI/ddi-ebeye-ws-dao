@@ -41,11 +41,13 @@ public class DatasetWsClient extends EbeyeClient{
 
         String finalFields = getConcatenatedField(fields);
 
-        sortfield = (sortfield == null)? "title":sortfield;
-        order    = (order == null || order.length() == 0 )? "ascending":order;
-
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
+
+        if(!(sortfield == null || sortfield.length() == 0 || order == null || order.length()  == 0))
+            url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
+                    config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
+
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
 
