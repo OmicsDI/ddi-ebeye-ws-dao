@@ -7,6 +7,7 @@ import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.SimilarResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.utils.Constans;
 
 import java.util.Set;
 
@@ -40,6 +41,9 @@ public class DatasetWsClient extends EbeyeClient{
     public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield, String order, int start, int size, int facetCount){
 
         String finalFields = getConcatenatedField(fields);
+
+        if((sortfield != null && sortfield.length() > 0) && (order == null || order.length() == 0))
+            order = Constans.ASCENDING;
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
