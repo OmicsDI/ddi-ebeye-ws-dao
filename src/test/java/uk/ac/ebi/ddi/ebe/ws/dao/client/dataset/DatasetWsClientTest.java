@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.SimilarResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,7 +68,7 @@ public class DatasetWsClientTest {
         String[] ids    = {"9606","9432"};
         Set<String> finalIds = new HashSet<String>(Arrays.asList(ids));
         QueryResult pride = datasetWsClient.getDatasetsById("taxonomy", fields, finalIds);
-        assertNotNull(pride.getCount() > 1);
+        assertNotNull(pride.getEntries().length == 1);
     }
 
     @Test
