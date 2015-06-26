@@ -59,8 +59,10 @@ public class DictionaryClient extends EbeyeClient{
 
         int count = 0;
         Iterator<String> word = resultWords.keySet().iterator();
-        while(count < size && word.hasNext())
+        while(count < size && word.hasNext()){
             items.add(new Item(word.next()));
+            count++;
+        }
 
         return new DictWord(items.size(), items);
     }
