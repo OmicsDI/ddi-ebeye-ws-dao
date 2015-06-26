@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.DictWord;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.Item;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.Suggestion;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.Suggestions;
 
@@ -33,7 +35,7 @@ public class DictionaryClient extends EbeyeClient{
      * @param domainName Domain to retrieve the information
      * @return A list of entries and the facets included
      */
-    public List<String> getWordsDomains(String[] domainName, String pattern, int size){
+    public DictWord getWordsDomains(String[] domainName, String pattern, int size){
 
         Map<String, Integer> resultWords = new TreeMap<String, Integer>();
 
@@ -52,12 +54,15 @@ public class DictionaryClient extends EbeyeClient{
             }
         }
         resultWords = sortByValues(resultWords);
-        List<String> result = new ArrayList<String>();
+
+        List<Item> items = new ArrayList<>();
+
         int count = 0;
         Iterator<String> word = resultWords.keySet().iterator();
         while(count < size && word.hasNext())
-            result.add(word.next());
-        return result;
+            items.add(new Item(word.next()));
+
+        return new DictWord(items.size(), items);
     }
 
     private static <K, V extends Comparable<V>> Map<K, V> sortByValues(final Map<K, V> map) {
