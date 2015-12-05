@@ -123,7 +123,7 @@ public class DatasetWsClient extends EbeyeClient{
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s/morelikethis?mltfields=%s&excludesets=omics_stopwords&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s/morelikethis?mltfields=%s&excludesets=omics_stopwords&entryattrs=score&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, id,  finalFields);
 
 

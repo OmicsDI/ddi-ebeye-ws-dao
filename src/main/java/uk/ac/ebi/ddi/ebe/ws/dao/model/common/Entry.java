@@ -18,6 +18,9 @@ public class Entry {
     @JsonProperty("id")
     String id = null;
 
+    @JsonProperty("score")
+    String score;
+
     @JsonProperty("source")
     String source = null;
 
@@ -46,5 +49,13 @@ public class Entry {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 }
