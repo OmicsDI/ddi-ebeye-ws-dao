@@ -37,7 +37,7 @@ public class DictionaryClient extends EbeyeClient{
      */
     public DictWord getWordsDomains(String[] domainName, String pattern, int size){
 
-        Map<String, Integer> resultWords = new TreeMap<String, Integer>();
+        Map<String, Integer> resultWords = new TreeMap<>();
 
         for(String domain: domainName){
             String url = String.format("%s://%s/ebisearch/ws/rest/%s/autocomplete?term=%s&format=JSON",
@@ -75,7 +75,7 @@ public class DictionaryClient extends EbeyeClient{
                 else return compare;
             }
         };
-        Map<K, V> sortedByValues = new TreeMap<K, V>(valueComparator);
+        Map<K, V> sortedByValues = new TreeMap<>(valueComparator);
         sortedByValues.putAll(map);
         return sortedByValues;
     }

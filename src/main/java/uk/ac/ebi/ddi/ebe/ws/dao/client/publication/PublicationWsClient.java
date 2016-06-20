@@ -2,6 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.publication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
@@ -32,7 +33,7 @@ public class PublicationWsClient extends EbeyeClient{
      * @param ids The pubmed ids
      * @return A set of publications
      */
-    public QueryResult getPublications(String[] fields, Set<String> ids){
+    public QueryResult getPublications(String[] fields, Set<String> ids) throws RestClientException{
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
@@ -50,7 +51,6 @@ public class PublicationWsClient extends EbeyeClient{
 
         String url = String.format("%s://%s/ebisearch/ws/rest/pubmed/entry/%s?fields=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), finalIds,  finalFields, finalFields);
-
 
         return this.restTemplate.getForObject(url, QueryResult.class);
     }

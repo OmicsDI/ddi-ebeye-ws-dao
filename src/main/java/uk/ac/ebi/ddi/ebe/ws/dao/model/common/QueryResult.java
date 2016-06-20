@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Entry;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Facet;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,17 +61,13 @@ public class QueryResult {
         if(results != null){
 
             if(this.entries != null)
-                for(Entry entry: this.entries)
-                    entries.add(entry);
+                Collections.addAll(entries, this.entries);
             if(results.entries != null)
-                for(Entry entry: results.entries)
-                    entries.add(entry);
+                Collections.addAll(entries, results.entries);
             if(this.facets != null)
-                for(Facet entry: this.facets)
-                    facets.add(entry);
+                Collections.addAll(facets, this.facets);
             if(results.facets != null)
-                for(Facet entry: results.facets)
-                    facets.add(entry);
+                Collections.addAll(facets, results.facets);
 
             this.facets  = new Facet[facets.size()];
             this.entries = new Entry[entries.size()];

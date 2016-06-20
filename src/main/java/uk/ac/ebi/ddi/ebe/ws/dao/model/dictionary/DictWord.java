@@ -11,7 +11,7 @@ public class DictWord {
 
     int total_count = 0;
 
-    List<Item> items = new ArrayList<Item>();
+    List<Item> items = new ArrayList<>();
 
     public DictWord(){
 

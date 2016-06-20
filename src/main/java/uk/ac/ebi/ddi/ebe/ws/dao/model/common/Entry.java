@@ -1,7 +1,5 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.model.common;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,7 +23,7 @@ public class Entry {
     String source = null;
 
     @JsonProperty("fields")
-    Map<String, String[]> fields = new HashMap<String, String[]>();
+    Map<String, String[]> fields = new HashMap<>();
 
     public Map<String, String[]> getFields() {
         return fields;
