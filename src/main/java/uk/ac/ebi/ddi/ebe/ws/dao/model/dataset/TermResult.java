@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Term;
 
+import java.util.Arrays;
+
 /**
  * @author  @ypriverol Yasset Perez-Riverol
  */
@@ -26,4 +28,11 @@ public class TermResult {
         this.terms = terms;
     }
 
+    @Override
+    public String toString() {
+        return "TermResult{" +
+                "terms=" + Arrays.toString(terms) +
+                ", totalTermCount=" + totalTermCount +
+                '}';
+    }
 }

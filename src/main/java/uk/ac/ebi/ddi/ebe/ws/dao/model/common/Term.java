@@ -31,4 +31,12 @@ public class Term {
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "text='" + text + '\'' +
+                ", frequency='" + frequency + '\'' +
+                '}';
+    }
 }
