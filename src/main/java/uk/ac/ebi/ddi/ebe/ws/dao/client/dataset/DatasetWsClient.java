@@ -2,6 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.dataset;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
@@ -43,7 +44,7 @@ public class DatasetWsClient extends EbeyeClient{
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
-        if((sortfield != null && sortfield.length() > 0) && (order == null || order.length() == 0))
+        if((sortfield != null && sortfield.length()> 0) && (order == null || order.length() == 0))
             order = Constans.ASCENDING;
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
@@ -53,10 +54,12 @@ public class DatasetWsClient extends EbeyeClient{
             url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
                     config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
 
+
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
 
         return this.restTemplate.getForObject(url, QueryResult.class);
+
     }
 
     /**
@@ -82,8 +85,10 @@ public class DatasetWsClient extends EbeyeClient{
             }
         }
 
+        String database = Constans.Database.retriveSorlName(domainName);
+
         String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, finalIds,  finalFields, finalFields);
+                config.getProtocol(), config.getHostName(), database, finalIds,  finalFields, finalFields);
 
 
         return this.restTemplate.getForObject(url, QueryResult.class);
