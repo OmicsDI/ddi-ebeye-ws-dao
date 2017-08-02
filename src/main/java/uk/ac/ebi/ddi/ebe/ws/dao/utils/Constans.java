@@ -12,7 +12,7 @@ public class Constans {
     public static String AND = "AND";
 
     public enum Database{
-        PRIDE("pride", "pride"),
+        PRIDE("Pride", "pride"),
         PEPTIDEATLAS("PeptideAtlas", "peptide_atlas"),
         MASSIVE("Massive", "massive"),
         METABOLIGHTS("MetaboLights", "metabolights_dataset"),
@@ -24,9 +24,9 @@ public class Constans {
         EXPRESSION_ATLAS("ExpressionAtlas", "atlas-experiments"),
         METABOLOMICSWORKBENCH("MetabolomicsWorkbench", "metabolomics_workbench"),
         BIOMODELS("BioModels Database","BioModels"),
-        LINCS("LINCS","LINCS"),
-        PAXDB("PAXDB","PAXDB"),
-        JPOST("JPOST Repository","JPOST");
+        LINCS("LINCS","lincs"),
+        PAXDB("PAXDB","paxdb"),
+        JPOST("JPOST Repository","jpost");
 
         String databaseName;
         String solarName;
