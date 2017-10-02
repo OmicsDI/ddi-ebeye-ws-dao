@@ -6,6 +6,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.config;
 public class EbeyeWsConfigProd extends AbstractEbeyeWsConfig {
 
     public EbeyeWsConfigProd() {
-        super("http", "www.ebi.ac.uk");
+        super("https", "www.ebi.ac.uk");
     }
 }
