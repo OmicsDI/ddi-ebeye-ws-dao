@@ -33,7 +33,9 @@ public class CitationClientTest {
 
     @Test
     public void testGetDomainByName() throws Exception {
-        CitationResponse citationResponse = citationClient.getCitations("PXD000865");
+        CitationResponse citationResponse = citationClient.getCitations("E-MTAB-25",1000,"*");
         assertNotNull(citationResponse.count > 0);
     }
+
+
 }
