@@ -17,9 +17,11 @@ public class CitationClient extends EbeyeClient {
         super(config);
     }
 
-    public CitationResponse getCitations(String accession){
-        String url = String.format("%s://%s/europepmc/webservices/rest/search?query=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), accession);
+    public CitationResponse getCitations(String accession,int pageSize,String cursorMark){
+        accession = "\"" + accession + "\"";
+        String url = String.format("%s://%s/europepmc/webservices/rest/search?query=%s&" +
+                        "format=JSON&resulttype=idlist&pageSize=%s&cursorMark=%s",
+                config.getProtocol(), config.getHostName(), accession,pageSize,cursorMark);
 
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
