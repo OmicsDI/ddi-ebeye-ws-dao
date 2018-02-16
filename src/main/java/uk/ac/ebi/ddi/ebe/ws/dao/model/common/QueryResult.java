@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Entry;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Facet;
+import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.Domain;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,6 +27,9 @@ public class QueryResult {
 
     @JsonProperty("facets")
     Facet[] facets;
+
+    @JsonProperty("domains")
+    List<Domains> domains;
 
     public QueryResult(){
         count = 0;
@@ -51,6 +56,14 @@ public class QueryResult {
 
     public void setFacets(Facet[] facets) {
         this.facets = facets;
+    }
+
+    public List<Domains> getDomains() {
+        return domains;
+    }
+
+    public void setDomains(List<Domains> domains) {
+        this.domains = domains;
     }
 
     public void addResults(QueryResult results) {
