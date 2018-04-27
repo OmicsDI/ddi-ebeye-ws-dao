@@ -40,26 +40,27 @@ public class DatasetWsClient extends EbeyeClient{
      * @param facetCount Face count the number of facets by entry.
      * @return A list of entries and the facets included
      */
-    public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield, String order, int start, int size, int facetCount){
+    public QueryResult getDatasets(String domainName, String query, String[] fields,
+                                   String sortField, String order, int start, int size, int facetCount){
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
-        if((sortfield != null && sortfield.length()> 0) && (order == null || order.length() == 0))
+        if((sortField != null && sortField.length()> 0) && (order == null || order.length() == 0))
             order = Constans.ASCENDING;
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
+                config.getProtocol(), config.getHostName(), domainName, query,
+                    finalFields, start, size, facetCount, sortField, order);
 
-        if(!(sortfield == null || sortfield.length() == 0 || order == null || order.length()  == 0))
+        if(!(sortField == null || sortField.length() == 0 || order == null || order.length()  == 0))
             url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
-                    config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
-
+                    config.getProtocol(), config.getHostName(), domainName, query,
+                        finalFields, start, size, facetCount, sortField, order);
 
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
 
         return this.restTemplate.getForObject(url, QueryResult.class);
-
     }
 
     /**
