@@ -73,24 +73,13 @@ public class DatasetWsClient extends EbeyeClient{
     public QueryResult getDatasetsById(String domainName, String[] fields, Set<String> ids){
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
-
-        String finalIds = "";
-        if(ids != null && ids.size() > 0){
-            int count = 0;
-            for(String value: ids){
-                if(count == ids.size() - 1)
-                    finalIds = finalIds + value;
-                else
-                    finalIds = finalIds + value + ",";
-                count++;
-            }
-        }
+        String[] myIds = ids.toArray(new String[ids.size()]);
+        String finalIds = DDIUtils.getConcatenatedField(myIds);
 
         String database = Constans.Database.retriveSorlName(domainName);
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), database, finalIds,  finalFields, finalFields);
-
 
         return this.restTemplate.getForObject(url, QueryResult.class);
 
@@ -106,21 +95,10 @@ public class DatasetWsClient extends EbeyeClient{
      */
     public TermResult getFrequentlyTerms(String domainName, String field, String[] exclusionTerms, int size){
 
-        String exclusionWord = "";
-        if(exclusionTerms != null && exclusionTerms.length > 0){
-            int count = 0;
-            for(String value: exclusionTerms){
-                if(count == exclusionTerms.length - 1)
-                    exclusionWord = exclusionWord + value;
-                else
-                    exclusionWord = exclusionWord + value + ",";
-                count++;
-            }
-        }
+        String exclusionWord = DDIUtils.getConcatenatedField(exclusionTerms);
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s/topterms/%s?excludesets=omics_stopwords&size=%s&excludes=%s&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, field, size, exclusionWord);
-
 
         return this.restTemplate.getForObject(url, TermResult.class);
     }
@@ -132,9 +110,7 @@ public class DatasetWsClient extends EbeyeClient{
         String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s/morelikethis/omics?mltfields=%s&excludesets=omics_stopwords&entryattrs=score&format=JSON",
                 config.getProtocol(), config.getHostName(), domainName, id,  finalFields);
 
-
         return this.restTemplate.getForObject(url, SimilarResult.class);
 
     }
-
 }
