@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 @ContextConfiguration(locations = {"/test-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,6 +38,14 @@ public class DatasetWsClientTest {
         String[] fields = {"name,description"};
         QueryResult pride = datasetWsClient.getDatasets("pride", "human", fields, null, null, 0 , 20,10);
         assertNotNull(pride.getCount() > 1);
+    }
+
+    @Test
+    public void testGetDatasetsWithMultiSortFields() throws Exception {
+        String[] fields = {"name, id, isprivate"};
+        String sort = "isprivate:ascending,tokenised_name:ascending";
+        QueryResult biomodels = datasetWsClient.getDatasets("biomodels", "*:*", fields, 0, 10, 20, sort);
+        assertNotNull(biomodels.getCount() > 1);
     }
 
     @Test

@@ -64,6 +64,30 @@ public class DatasetWsClient extends EbeyeClient {
     }
 
     /**
+     * Returns the Datasets for a domain with a specific query with the optional parameters.
+     * This method overrides @getDatasets one but implements another way to sort search
+     * results as described in EBI Search documentation.
+     *
+     * @param domainName Domain to retrieve the information
+     * @param query      Web-service query
+     * @param fields     the set of the fields to be queried
+     * @param start      number of the first entry to retrieve
+     * @param size       Number of entries to be retrieve maximum 100.
+     * @param facetCount Face count the number of facets by entry.
+     * @param sort       Sortable fields and how to sort data.
+     * @return           A list of entries and the facets included
+     */
+    public QueryResult getDatasets(String domainName, String query, String[] fields,
+                                   int start, int size, int facetCount, String sort) {
+        String finalFields = DDIUtils.getConcatenatedField(fields);
+        String prefix = String.format("%s://%s/ebisearch/ws/rest/%s",
+                config.getProtocol(), config.getHostName(), domainName);
+        String url = String.format("%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sort=%s&format=JSON",
+                prefix, query, finalFields, start, size, facetCount, sort);
+        return this.restTemplate.getForObject(url, QueryResult.class);
+    }
+
+    /**
      * This query retrieve the specific entries using a set of identifiers from an specific domain
      *
      * @param domainName domain
