@@ -3,11 +3,13 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.publication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.DDIUtils;
 
+import java.net.URI;
 import java.util.Set;
 
 /**
@@ -35,8 +37,6 @@ public class PublicationWsClient extends EbeyeClient{
      */
     public QueryResult getPublications(String[] fields, Set<String> ids) throws RestClientException{
 
-        String finalFields = DDIUtils.getConcatenatedField(fields);
-
         String finalIds = "";
         if(ids != null && ids.size() > 0){
             int count = 0;
@@ -48,12 +48,16 @@ public class PublicationWsClient extends EbeyeClient{
                 count++;
             }
         }
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest/pubmed/entry")
+                .path("/" + finalIds)
+                .queryParam("fields", DDIUtils.getConcatenatedField(fields))
+                .queryParam("format", "JSON");
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/pubmed/entry/%s?fields=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), finalIds,  finalFields, finalFields);
+        URI uri = builder.build().encode().toUri();
 
-        return this.restTemplate.getForObject(url, QueryResult.class);
+        return getRetryTemplate().execute(context -> restTemplate.getForObject(uri, QueryResult.class));
     }
-
-
 }
