@@ -11,7 +11,6 @@ import java.util.Arrays;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class TermResult {
 
     @JsonProperty("topTerms")

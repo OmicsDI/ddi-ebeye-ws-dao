@@ -11,7 +11,6 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.common.IndexInfo;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class Domain {
 
     @JsonProperty("id")

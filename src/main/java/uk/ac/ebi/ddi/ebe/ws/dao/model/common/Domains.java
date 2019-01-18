@@ -2,9 +2,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.model.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.Domain;
-
-import java.util.List;
 
 /**
  * Created by gaur on 14/02/18.

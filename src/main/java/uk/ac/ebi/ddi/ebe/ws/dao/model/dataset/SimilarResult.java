@@ -10,7 +10,6 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Entry;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class SimilarResult {
 
     @JsonProperty("entries")

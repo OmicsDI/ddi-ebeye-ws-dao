@@ -25,7 +25,7 @@ public class EbeyeClient {
      * Default constructor for Archive clients
      * @param config
      */
-    public EbeyeClient(AbstractEbeyeWsConfig config){
+    public EbeyeClient(AbstractEbeyeWsConfig config) {
         this.config = config;
         this.restTemplate = new RestTemplate();
         SimpleRetryPolicy policy =
