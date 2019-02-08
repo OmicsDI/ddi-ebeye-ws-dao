@@ -47,11 +47,11 @@ public class DatasetWsClient extends EbeyeClient{
         if((sortfield != null && sortfield.length()> 0) && (order == null || order.length() == 0))
             order = Constans.ASCENDING;
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=json&excludezero=true",
                 config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
 
         if(!(sortfield == null || sortfield.length() == 0 || order == null || order.length()  == 0))
-            url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=JSON",
+            url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=json&excludezero=true",
                     config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
 
 
@@ -87,7 +87,7 @@ public class DatasetWsClient extends EbeyeClient{
 
         String database = Constans.Database.retriveSorlName(domainName);
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=JSON",
+        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=json",
                 config.getProtocol(), config.getHostName(), database, finalIds,  finalFields, finalFields);
 
 
