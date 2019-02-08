@@ -2,7 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.client.dataset;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
@@ -11,13 +11,14 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.Constans;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.DDIUtils;
 
+import java.net.URI;
 import java.util.Set;
 
 
 /**
  * @author Yasset Perez-Riverol ypriverol
  */
-public class DatasetWsClient extends EbeyeClient{
+public class DatasetWsClient extends EbeyeClient {
 
     private static final Logger logger = LoggerFactory.getLogger(DatasetWsClient.class);
 
@@ -40,16 +41,16 @@ public class DatasetWsClient extends EbeyeClient{
      * @param facetCount Face count the number of facets by entry.
      * @return A list of entries and the facets included
      */
-    public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield, String order, int start, int size, int facetCount){
+    public QueryResult getDatasets(String domainName, String query, String[] fields, String sortfield,
+                                   String order, int start, int size, int facetCount) {
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
-        if((sortfield != null && sortfield.length()> 0) && (order == null || order.length() == 0))
+        if ((sortfield != null && sortfield.length() > 0) && (order == null || order.length() == 0)) {
             order = Constans.ASCENDING;
+        }
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&format=json&excludezero=true",
-                config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
-
+        String url = "";
         if(!(sortfield == null || sortfield.length() == 0 || order == null || order.length()  == 0))
             url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=json&excludezero=true",
                     config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
@@ -58,8 +59,26 @@ public class DatasetWsClient extends EbeyeClient{
         //Todo: Needs to be removed in the future, this is for debugging
         logger.debug(url);
 
-        return this.restTemplate.getForObject(url, QueryResult.class);
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest")
+                .path("/" + domainName)
+                .queryParam("query", query)
+                .queryParam("fields", finalFields)
+                .queryParam("start", start)
+                .queryParam("size", size)
+                .queryParam("facetcount", facetCount)
+                .queryParam("format", "JSON");
 
+        if (!(sortfield == null || sortfield.length() == 0)) {
+            builder
+                    .queryParam("sortfield", sortfield)
+                    .queryParam("order", order);
+        }
+
+        URI uri = builder.build().encode().toUri();
+        return restTemplate.getForObject(uri, QueryResult.class);
     }
 
     /**
@@ -69,29 +88,26 @@ public class DatasetWsClient extends EbeyeClient{
      * @param ids   the set of ids to be retrieved.
      * @return QueryResult
      */
-    public QueryResult getDatasetsById(String domainName, String[] fields, Set<String> ids){
+    public QueryResult getDatasetsById(String domainName, String[] fields, Set<String> ids) {
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
-
-        String finalIds = "";
-        if(ids != null && ids.size() > 0){
-            int count = 0;
-            for(String value: ids){
-                if(count == ids.size() - 1)
-                    finalIds = finalIds + value;
-                else
-                    finalIds = finalIds + value + ",";
-                count++;
-            }
-        }
-
+        String finalIds = String.join(",", ids);
         String database = Constans.Database.retriveSorlName(domainName);
 
         String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=json",
                 config.getProtocol(), config.getHostName(), database, finalIds,  finalFields, finalFields);
 
-
-        return this.restTemplate.getForObject(url, QueryResult.class);
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest")
+                .path("/" + database)
+                .path("/entry")
+                .path("/" + finalIds)
+                .queryParam("fields", finalFields)
+                .queryParam("format", "JSON");
+        URI uri = builder.build().encode().toUri();
+        return restTemplate.getForObject(uri, QueryResult.class);
 
     }
 
@@ -103,37 +119,42 @@ public class DatasetWsClient extends EbeyeClient{
      * @param size number of terms to be retrieved
      * @return TermResult
      */
-    public TermResult getFrequentlyTerms(String domainName, String field, String[] exclusionTerms, int size){
+    public TermResult getFrequentlyTerms(String domainName, String field, String[] exclusionTerms, int size) {
 
-        String exclusionWord = "";
-        if(exclusionTerms != null && exclusionTerms.length > 0){
-            int count = 0;
-            for(String value: exclusionTerms){
-                if(count == exclusionTerms.length - 1)
-                    exclusionWord = exclusionWord + value;
-                else
-                    exclusionWord = exclusionWord + value + ",";
-                count++;
-            }
-        }
+        String exclusionWord = String.join(",", exclusionTerms);
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/topterms/%s?excludesets=omics_stopwords&size=%s&excludes=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, field, size, exclusionWord);
-
-
-        return this.restTemplate.getForObject(url, TermResult.class);
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest")
+                .path("/" + domainName)
+                .path("/topterms")
+                .path("/" + field)
+                .queryParam("excludesets", "omics_stopwords")
+                .queryParam("size", size)
+                .queryParam("excludes", exclusionWord)
+                .queryParam("format", "JSON");
+        URI uri = builder.build().encode().toUri();
+        return restTemplate.getForObject(uri, TermResult.class);
     }
 
-    public SimilarResult getSimilarProjects(String domainName, String id, String[] fields){
+    public SimilarResult getSimilarProjects(String domainName, String id, String[] fields) {
 
         String finalFields = DDIUtils.getConcatenatedField(fields);
 
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s/morelikethis/omics?mltfields=%s&excludesets=omics_stopwords&entryattrs=score&format=JSON",
-                config.getProtocol(), config.getHostName(), domainName, id,  finalFields);
-
-
-        return this.restTemplate.getForObject(url, SimilarResult.class);
-
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest")
+                .path("/" + domainName)
+                .path("/entry")
+                .path("/" + id)
+                .path("/morelikethis/omics")
+                .queryParam("mltfields", finalFields)
+                .queryParam("excludesets", "omics_stopwords")
+                .queryParam("entryattrs", "score")
+                .queryParam("format", "JSON");
+        URI uri = builder.build().encode().toUri();
+        return this.restTemplate.getForObject(uri, SimilarResult.class);
     }
-
 }

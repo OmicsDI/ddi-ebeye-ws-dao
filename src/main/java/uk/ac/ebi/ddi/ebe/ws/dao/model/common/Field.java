@@ -20,6 +20,4 @@ public class Field {
     public void setValues(String[] values) {
         this.values = values;
     }
-
-
 }
