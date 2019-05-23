@@ -7,12 +7,15 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.facet.FacetList;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.Constans;
 
 import java.net.URI;
+import java.util.Arrays;
 
 /**
  * @author Yasset Perez-Riverol ypriverol
  */
 
 public class FacetWsClient extends EbeyeClient {
+
+    private static final int MAX_DOMAIN = 17;
 
     /**
      * Default constructor for Ws clients
@@ -32,7 +35,12 @@ public class FacetWsClient extends EbeyeClient {
      */
     public FacetList getFacetEntriesByDomains(String parentdomain, String[] domains, String facetField, int count) {
 
-        String domain = String.join(" " + Constans.OR + " ", domains);
+        String[] domainToSearch = domains;
+        if (domains.length > MAX_DOMAIN) {
+            domainToSearch = Arrays.copyOfRange(domains, 0, MAX_DOMAIN);
+        }
+
+        String domain = String.join(" " + Constans.OR + " ", domainToSearch);
 
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
