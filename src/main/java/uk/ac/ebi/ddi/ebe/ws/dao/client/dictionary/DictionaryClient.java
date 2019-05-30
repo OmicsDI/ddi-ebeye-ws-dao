@@ -14,16 +14,11 @@ import java.util.*;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 26/06/2015
+ * 26/06/2015
  */
 
 public class DictionaryClient extends EbeyeClient {
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public DictionaryClient(AbstractEbeyeWsConfig config) {
         super(config);
     }
@@ -31,6 +26,8 @@ public class DictionaryClient extends EbeyeClient {
     /**
      * Returns the Datasets for a domain with an specific Query
      * @param domainName Domain to retrieve the information
+     * @param pattern pattern
+     * @param size size to retrieve
      * @return A list of entries and the facets included
      */
     public DictWord getWordsDomains(String[] domainName, String pattern, int size) {

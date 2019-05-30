@@ -17,11 +17,6 @@ public class FacetWsClient extends EbeyeClient {
 
     private static final int MAX_DOMAIN = 17;
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public FacetWsClient(AbstractEbeyeWsConfig config) {
         super(config);
     }
@@ -31,6 +26,7 @@ public class FacetWsClient extends EbeyeClient {
      * @param parentdomain parent domain
      * @param domains      subdomains
      * @param facetField   the facet field
+     * @param count number of facet
      * @return Return a facet field with the information of the term
      */
     public FacetList getFacetEntriesByDomains(String parentdomain, String[] domains, String facetField, int count) {

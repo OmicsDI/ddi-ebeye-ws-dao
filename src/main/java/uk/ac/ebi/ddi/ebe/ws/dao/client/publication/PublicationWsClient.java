@@ -13,17 +13,12 @@ import java.util.Set;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 11/06/2015
+ * 11/06/2015
  */
 public class PublicationWsClient extends EbeyeClient {
 
     private static final int MAX_IDENTIFIER_PER_REQUEST = 100;
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public PublicationWsClient(AbstractEbeyeWsConfig config) {
         super(config);
     }

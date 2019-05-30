@@ -14,11 +14,6 @@ import java.net.URI;
  */
 public class DomainWsClient extends EbeyeClient {
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public DomainWsClient(AbstractEbeyeWsConfig config) {
         super(config);
     }

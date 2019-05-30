@@ -2,7 +2,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 26/06/2015
  */
 public class Item {
 

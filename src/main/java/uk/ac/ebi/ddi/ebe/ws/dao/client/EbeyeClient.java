@@ -21,10 +21,6 @@ public class EbeyeClient {
     private static final int RETRIES = 5;
     private RetryTemplate retryTemplate = new RetryTemplate();
 
-    /**
-     * Default constructor for Archive clients
-     * @param config
-     */
     public EbeyeClient(AbstractEbeyeWsConfig config) {
         this.config = config;
         this.restTemplate = new RestTemplate();

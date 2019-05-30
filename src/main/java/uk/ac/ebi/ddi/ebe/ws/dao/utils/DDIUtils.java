@@ -2,7 +2,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.utils;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 11/06/2015
  */
 public class DDIUtils {
 

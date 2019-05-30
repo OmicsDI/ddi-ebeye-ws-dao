@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 26/06/2015
  */
 public class DictWord {
 
