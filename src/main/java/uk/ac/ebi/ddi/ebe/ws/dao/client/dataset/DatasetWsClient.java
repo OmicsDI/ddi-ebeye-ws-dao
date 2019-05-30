@@ -20,13 +20,8 @@ import java.util.Set;
  */
 public class DatasetWsClient extends EbeyeClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(DatasetWsClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatasetWsClient.class);
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public DatasetWsClient(AbstractEbeyeWsConfig config) {
         super(config);
     }
@@ -49,15 +44,6 @@ public class DatasetWsClient extends EbeyeClient {
         if ((sortfield != null && sortfield.length() > 0) && (order == null || order.length() == 0)) {
             order = Constans.ASCENDING;
         }
-
-        String url = "";
-        if(!(sortfield == null || sortfield.length() == 0 || order == null || order.length()  == 0))
-            url = String.format("%s://%s/ebisearch/ws/rest/%s?query=%s&fields=%s&start=%s&size=%s&facetcount=%s&sortfield=%s&order=%s&format=json&excludezero=true",
-                    config.getProtocol(), config.getHostName(), domainName, query, finalFields, start, size, facetCount, sortfield,order);
-
-
-        //Todo: Needs to be removed in the future, this is for debugging
-        logger.debug(url);
 
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
@@ -93,9 +79,6 @@ public class DatasetWsClient extends EbeyeClient {
         String finalFields = DDIUtils.getConcatenatedField(fields);
         String finalIds = String.join(",", ids);
         String database = Constans.Database.retriveSorlName(domainName);
-
-        String url = String.format("%s://%s/ebisearch/ws/rest/%s/entry/%s?fields=%s&format=json",
-                config.getProtocol(), config.getHostName(), database, finalIds,  finalFields, finalFields);
 
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())

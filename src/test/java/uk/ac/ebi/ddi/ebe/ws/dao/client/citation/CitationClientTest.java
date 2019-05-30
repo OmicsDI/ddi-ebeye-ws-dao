@@ -36,6 +36,4 @@ public class CitationClientTest {
         CitationResponse citationResponse = citationClient.getCitations("E-MTAB-25",1000,"*");
         assertNotNull(citationResponse.count > 0);
     }
-
-
 }
