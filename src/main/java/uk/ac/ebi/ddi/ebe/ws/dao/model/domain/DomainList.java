@@ -12,4 +12,12 @@ public class DomainList {
 
     @JsonProperty("domains")
     public Domain[] list;
+
+    public Domain[] getList() {
+        return list;
+    }
+
+    public void setList(Domain[] list) {
+        this.list = list;
+    }
 }

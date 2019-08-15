@@ -41,15 +41,15 @@ public class Facet {
         return facetValues;
     }
 
+    public void setFacetValues(FacetValue[] facetValues) {
+        this.facetValues = facetValues;
+    }
+
     public Integer getTotal() {
         return total;
     }
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public void setFacetValues(FacetValue[] facetValues) {
-        this.facetValues = facetValues;
     }
 }
