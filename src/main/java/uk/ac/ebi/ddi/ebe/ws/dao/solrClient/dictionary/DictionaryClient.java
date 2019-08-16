@@ -3,6 +3,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.solrClient.dictionary;
 
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractSolrWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.DictWord;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.Item;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dictionary.Suggestion;
@@ -19,7 +20,7 @@ import java.util.*;
 
 public class DictionaryClient extends EbeyeClient {
 
-    public DictionaryClient(AbstractEbeyeWsConfig config) {
+    public DictionaryClient(AbstractSolrWsConfig config) {
         super(config);
     }
 
@@ -53,8 +54,8 @@ public class DictionaryClient extends EbeyeClient {
             UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                     .scheme(config.getProtocol())
                     .host(config.getHostName())
-                    .port(8082)
-                    .path("/solrapi")
+                    .port(config.getPort())
+                    .path(config.getBasePath())
                     .path("/" + domain)
                     .path("/autocomplete")
                     .queryParam("term", pattern)

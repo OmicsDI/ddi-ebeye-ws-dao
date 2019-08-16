@@ -5,6 +5,7 @@ import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.web.client.RestTemplate;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractSolrWsConfig;
 
 import java.util.Collections;
 
@@ -17,10 +18,10 @@ public class EbeyeClient {
 
     private static final int RETRIES = 5;
     protected RestTemplate restTemplate;
-    protected AbstractEbeyeWsConfig config;
+    protected AbstractSolrWsConfig config;
     private RetryTemplate retryTemplate = new RetryTemplate();
 
-    public EbeyeClient(AbstractEbeyeWsConfig config) {
+    public EbeyeClient(AbstractSolrWsConfig config) {
         this.config = config;
         this.restTemplate = new RestTemplate();
         SimpleRetryPolicy policy =
@@ -44,11 +45,11 @@ public class EbeyeClient {
         this.restTemplate = restTemplate;
     }
 
-    public AbstractEbeyeWsConfig getConfig() {
+    public AbstractSolrWsConfig getConfig() {
         return config;
     }
 
-    public void setConfig(AbstractEbeyeWsConfig config) {
+    public void setConfig(AbstractSolrWsConfig config) {
         this.config = config;
     }
 }

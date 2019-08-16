@@ -2,6 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.solrClient.facet;
 
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractSolrWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.facet.FacetList;
 import uk.ac.ebi.ddi.ebe.ws.dao.solrClient.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.Constans;
@@ -17,7 +18,7 @@ public class FacetWsClient extends EbeyeClient {
 
     private static final int MAX_DOMAIN = 17;
 
-    public FacetWsClient(AbstractEbeyeWsConfig config) {
+    public FacetWsClient(AbstractSolrWsConfig config) {
         super(config);
     }
 
@@ -42,10 +43,10 @@ public class FacetWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + parentdomain)
-                .queryParam("query", "database:(" + domain + ")")
+                .queryParam("query", "domain_source:(" + domain + ")")
 //                .queryParam("query", "domain_source:(" + domain + ")")
                 .queryParam("facetfields", facetField)
                 .queryParam("facetcount", count)

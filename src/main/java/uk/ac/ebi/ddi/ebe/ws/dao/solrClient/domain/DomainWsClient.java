@@ -2,6 +2,7 @@ package uk.ac.ebi.ddi.ebe.ws.dao.solrClient.domain;
 
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractSolrWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.domain.DomainList;
 import uk.ac.ebi.ddi.ebe.ws.dao.solrClient.EbeyeClient;
 
@@ -14,7 +15,7 @@ import java.net.URI;
  */
 public class DomainWsClient extends EbeyeClient {
 
-    public DomainWsClient(AbstractEbeyeWsConfig config) {
+    public DomainWsClient(AbstractSolrWsConfig config) {
         super(config);
     }
 
@@ -29,8 +30,8 @@ public class DomainWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + domainName)
                 .queryParam("format", "JSON");
         URI uri = builder.build().encode().toUri();
@@ -42,8 +43,8 @@ public class DomainWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/status/omics");
 //                .queryParam("format", "JSON");
         URI uri = builder.build().encode().toUri();

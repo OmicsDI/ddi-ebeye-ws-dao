@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
+import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractSolrWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.SimilarResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.dataset.TermResult;
@@ -22,7 +23,7 @@ public class DatasetWsClient extends EbeyeClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatasetWsClient.class);
 
-    public DatasetWsClient(AbstractEbeyeWsConfig config) {
+    public DatasetWsClient(AbstractSolrWsConfig config) {
         super(config);
     }
 
@@ -51,8 +52,8 @@ public class DatasetWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + domainName)
                 .queryParam("query", query)
                 .queryParam("fields", finalFields)
@@ -88,8 +89,8 @@ public class DatasetWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + database)
                 .path("/entry")
                 .path("/" + finalIds)
@@ -116,8 +117,8 @@ public class DatasetWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + domainName)
                 .path("/topterms")
                 .path("/" + field)
@@ -136,8 +137,8 @@ public class DatasetWsClient extends EbeyeClient {
         UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
                 .scheme(config.getProtocol())
                 .host(config.getHostName())
-                .port(8082)
-                .path("/solrapi")
+                .port(config.getPort())
+                .path(config.getBasePath())
                 .path("/" + domainName)
                 .path("/entry")
                 .path("/" + id)
