@@ -36,22 +36,6 @@ public class Constans {
             this.solarName = solrName;
         }
 
-        public String getDatabaseName() {
-            return databaseName;
-        }
-
-        public void setDatabaseName(String databaseName) {
-            this.databaseName = databaseName;
-        }
-
-        public String getSolarName() {
-            return solarName;
-        }
-
-        public void setSolarName(String solarName) {
-            this.solarName = solarName;
-        }
-
         public static String retriveAnchorName(String name) {
             for (Database database : values()) {
                 if (database.solarName.equalsIgnoreCase(name)) {
@@ -68,6 +52,22 @@ public class Constans {
                 }
             }
             return name;
+        }
+
+        public String getDatabaseName() {
+            return databaseName;
+        }
+
+        public void setDatabaseName(String databaseName) {
+            this.databaseName = databaseName;
+        }
+
+        public String getSolarName() {
+            return solarName;
+        }
+
+        public void setSolarName(String solarName) {
+            this.solarName = solarName;
         }
     }
 }

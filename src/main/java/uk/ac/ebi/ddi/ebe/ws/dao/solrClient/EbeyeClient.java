@@ -1,4 +1,4 @@
-package uk.ac.ebi.ddi.ebe.ws.dao.client;
+package uk.ac.ebi.ddi.ebe.ws.dao.solrClient;
 
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
@@ -15,10 +15,9 @@ import java.util.Collections;
  */
 public class EbeyeClient {
 
+    private static final int RETRIES = 5;
     protected RestTemplate restTemplate;
     protected AbstractEbeyeWsConfig config;
-
-    private static final int RETRIES = 5;
     private RetryTemplate retryTemplate = new RetryTemplate();
 
     public EbeyeClient(AbstractEbeyeWsConfig config) {

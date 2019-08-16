@@ -3,7 +3,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.config;
 /**
  * @author jadianes
  * @author ypriverol
- *
  */
 public abstract class AbstractEbeyeWsConfig {
 

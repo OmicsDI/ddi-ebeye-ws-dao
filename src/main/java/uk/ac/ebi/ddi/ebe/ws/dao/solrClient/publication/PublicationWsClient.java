@@ -1,10 +1,10 @@
-package uk.ac.ebi.ddi.ebe.ws.dao.client.publication;
+package uk.ac.ebi.ddi.ebe.ws.dao.solrClient.publication;
 
 import com.google.common.collect.Lists;
 import org.springframework.web.util.UriComponentsBuilder;
-import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
+import uk.ac.ebi.ddi.ebe.ws.dao.solrClient.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.DDIUtils;
 
 import java.net.URI;
@@ -25,8 +25,9 @@ public class PublicationWsClient extends EbeyeClient {
 
     /**
      * This function retrieve a set of publications by Ids and the corresponding fields
+     *
      * @param fields The fields to be retrieved
-     * @param ids The pubmed ids
+     * @param ids    The pubmed ids
      * @return A set of publications
      */
     public QueryResult getPublications(String[] fields, Set<String> ids) {

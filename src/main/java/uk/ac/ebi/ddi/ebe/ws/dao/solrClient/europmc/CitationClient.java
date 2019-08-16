@@ -1,9 +1,9 @@
-package uk.ac.ebi.ddi.ebe.ws.dao.client.europmc;
+package uk.ac.ebi.ddi.ebe.ws.dao.solrClient.europmc;
 
 import org.springframework.web.util.UriComponentsBuilder;
-import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.europmc.CitationResponse;
+import uk.ac.ebi.ddi.ebe.ws.dao.solrClient.EbeyeClient;
 
 import java.net.URI;
 
