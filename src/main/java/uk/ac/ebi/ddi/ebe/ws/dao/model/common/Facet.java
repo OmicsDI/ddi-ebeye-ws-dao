@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author ypriverol
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class Facet {
 
     @JsonProperty("id")
