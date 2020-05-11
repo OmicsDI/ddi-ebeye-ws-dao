@@ -1,6 +1,8 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client.publication;
 
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
@@ -16,6 +18,7 @@ import java.util.Set;
  * 11/06/2015
  */
 public class PublicationWsClient extends EbeyeClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PublicationWsClient.class);
 
     private static final int MAX_IDENTIFIER_PER_REQUEST = 100;
 
@@ -49,7 +52,7 @@ public class PublicationWsClient extends EbeyeClient {
             QueryResult tmp = restTemplate.getForObject(uri, QueryResult.class);
             queryResult.addResults(tmp);
         }
-
+        LOGGER.debug("We got {} publications that have been fetched.", queryResult.getEntries().length);
         return queryResult;
     }
 }

@@ -1,5 +1,7 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
@@ -20,6 +22,7 @@ public class EbeyeClient {
 
     private static final int RETRIES = 5;
     private RetryTemplate retryTemplate = new RetryTemplate();
+    final Logger LOGGER = LoggerFactory.getLogger(this.getClass().getName());
 
     public EbeyeClient(AbstractEbeyeWsConfig config) {
         this.config = config;

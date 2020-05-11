@@ -102,7 +102,8 @@ public class DatasetWsClient extends EbeyeClient {
             .queryParam("format", "JSON");
 
          URI uri = builder.build().encode().toUri();
-
+         String searchURI = uri.toString();
+         LOGGER.debug("Search URI: {}", searchURI);
         return this.restTemplate.getForObject(uri, QueryResult.class);
     }
 
