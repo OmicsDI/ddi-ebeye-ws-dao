@@ -36,7 +36,7 @@ public class DatasetWsClientTest {
     @Test
     public void testGetDatasets() throws Exception {
         String[] fields = {"name,description"};
-        QueryResult pride = datasetWsClient.getDatasets("pride", "human", fields, null, null, 0 , 20,10);
+        QueryResult pride = datasetWsClient.getDatasets("", "E-GEOD-21397", fields, null, null, 0 , 20,10);
         assertNotNull(pride.getCount() > 1);
     }
 
@@ -48,7 +48,8 @@ public class DatasetWsClientTest {
         assertNotNull(biomodels.getCount() > 1);
     }
 
-    @Test
+   /* @Test
+>>>>>>> omicsdi/master
     public void testGetFrequentlyTerms() throws Exception {
 
         datasetWsClient = new DatasetWsClient(ebeyeWsConfig);
@@ -87,5 +88,5 @@ public class DatasetWsClientTest {
         SimilarResult results = datasetWsClient.getSimilarProjects(domainName, id, fields);
         assertNotNull(results.getEntries().length > 0);
 
-    }
+    }*/
 }

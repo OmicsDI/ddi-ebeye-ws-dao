@@ -9,7 +9,6 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Facet;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class FacetList {
 
     @JsonProperty("hitCount")
