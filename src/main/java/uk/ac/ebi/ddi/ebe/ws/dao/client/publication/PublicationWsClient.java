@@ -1,28 +1,27 @@
 package uk.ac.ebi.ddi.ebe.ws.dao.client.publication;
 
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.util.UriComponentsBuilder;
 import uk.ac.ebi.ddi.ebe.ws.dao.client.EbeyeClient;
 import uk.ac.ebi.ddi.ebe.ws.dao.config.AbstractEbeyeWsConfig;
 import uk.ac.ebi.ddi.ebe.ws.dao.model.common.QueryResult;
 import uk.ac.ebi.ddi.ebe.ws.dao.utils.DDIUtils;
 
+import java.net.URI;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 11/06/2015
+ * 11/06/2015
  */
-public class PublicationWsClient extends EbeyeClient{
+public class PublicationWsClient extends EbeyeClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PublicationWsClient.class);
 
-    private static final Logger logger = LoggerFactory.getLogger(PublicationWsClient.class);
+    private static final int MAX_IDENTIFIER_PER_REQUEST = 100;
 
-    /**
-     * Default constructor for Ws clients
-     *
-     * @param config
-     */
     public PublicationWsClient(AbstractEbeyeWsConfig config) {
         super(config);
     }
@@ -33,27 +32,27 @@ public class PublicationWsClient extends EbeyeClient{
      * @param ids The pubmed ids
      * @return A set of publications
      */
-    public QueryResult getPublications(String[] fields, Set<String> ids) throws RestClientException{
+    public QueryResult getPublications(String[] fields, Set<String> ids) {
 
-        String finalFields = DDIUtils.getConcatenatedField(fields);
+        QueryResult queryResult = new QueryResult();
+        List<List<String>> parts = Lists.partition(Lists.newArrayList(ids), MAX_IDENTIFIER_PER_REQUEST);
 
-        String finalIds = "";
-        if(ids != null && ids.size() > 0){
-            int count = 0;
-            for(String value: ids){
-                if(count == ids.size() - 1)
-                    finalIds = finalIds + value;
-                else
-                    finalIds = finalIds + value + ",";
-                count++;
-            }
+        for (List<String> part : parts) {
+            String finalIds = String.join(",", part);
+            UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                    .scheme(config.getProtocol())
+                    .host(config.getHostName())
+                    .path("/ebisearch/ws/rest/pubmed/entry")
+                    .path("/" + finalIds)
+                    .queryParam("fields", DDIUtils.getConcatenatedField(fields))
+                    .queryParam("format", "JSON");
+
+            URI uri = builder.build().encode().toUri();
+
+            QueryResult tmp = restTemplate.getForObject(uri, QueryResult.class);
+            queryResult.addResults(tmp);
         }
-
-        String url = String.format("%s://%s/ebisearch/ws/rest/pubmed/entry/%s?fields=%s&format=JSON",
-                config.getProtocol(), config.getHostName(), finalIds,  finalFields, finalFields);
-
-        return this.restTemplate.getForObject(url, QueryResult.class);
+        LOGGER.debug("We got {} publications that have been fetched.", queryResult.getEntries().length);
+        return queryResult;
     }
-
-
 }

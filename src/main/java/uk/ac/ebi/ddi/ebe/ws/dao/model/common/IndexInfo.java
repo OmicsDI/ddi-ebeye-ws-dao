@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @ypriverol
+ * @author ypriverol
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class IndexInfo {
 
     @JsonProperty("name")

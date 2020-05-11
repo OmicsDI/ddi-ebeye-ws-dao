@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * @author Yasset Perez-Riverol (ypriverol@gmail.com)
- * @date 26/06/2015
  */
 public class DictWord {
 
@@ -13,8 +12,7 @@ public class DictWord {
 
     List<Item> items = new ArrayList<>();
 
-    public DictWord(){
-
+    public DictWord() {
     }
     public DictWord(int total_count, List<Item> items) {
         this.total_count = total_count;

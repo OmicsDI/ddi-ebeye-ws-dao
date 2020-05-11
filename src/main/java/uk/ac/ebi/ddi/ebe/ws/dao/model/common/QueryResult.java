@@ -2,11 +2,10 @@ package uk.ac.ebi.ddi.ebe.ws.dao.model.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Entry;
-import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Facet;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,7 +13,6 @@ import java.util.Set;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class QueryResult {
 
     @JsonProperty("hitCount")
@@ -26,9 +24,13 @@ public class QueryResult {
     @JsonProperty("facets")
     Facet[] facets;
 
-    public QueryResult(){
+    @JsonProperty("domains")
+    List<Domains> domains;
+
+    public QueryResult() {
         count = 0;
     }
+
     public Integer getCount() {
         return count;
     }
@@ -53,33 +55,45 @@ public class QueryResult {
         this.facets = facets;
     }
 
+    public List<Domains> getDomains() {
+        return domains;
+    }
+
+    public void setDomains(List<Domains> domains) {
+        this.domains = domains;
+    }
+
     public void addResults(QueryResult results) {
 
         Set<Entry> entries = new HashSet<>();
-        Set<Facet> facets  = new HashSet<>();
+        Set<Facet> facets = new HashSet<>();
 
-        if(results != null){
+        if (results != null) {
 
-            if(this.entries != null)
+            if (this.entries != null) {
                 Collections.addAll(entries, this.entries);
-            if(results.entries != null)
+            }
+            if (results.entries != null) {
                 Collections.addAll(entries, results.entries);
-            if(this.facets != null)
+            }
+            if (this.facets != null) {
                 Collections.addAll(facets, this.facets);
-            if(results.facets != null)
+            }
+            if (results.facets != null) {
                 Collections.addAll(facets, results.facets);
+            }
 
-            this.facets  = new Facet[facets.size()];
+            this.facets = new Facet[facets.size()];
             this.entries = new Entry[entries.size()];
 
             int i = 0;
-            for(Entry entry: entries){
+            for (Entry entry : entries) {
                 this.entries[i] = entry;
                 i++;
             }
 
             i = 0;
-            for(Facet entry: facets){
+            for (Facet entry : facets) {
                 this.facets[i] = entry;
                 i++;
             }

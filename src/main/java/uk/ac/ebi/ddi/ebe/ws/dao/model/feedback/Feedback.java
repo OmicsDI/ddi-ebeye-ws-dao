@@ -23,11 +23,14 @@ public class Feedback {
     @JsonProperty("searchQuery")
     String searchQuery;
 
-    public Feedback(){
+    public Feedback() {
 
     }
 
-    public Feedback(@JsonProperty("isSatisfied") Boolean isSatisfied,@JsonProperty("message") String message,@JsonProperty("userInfo") String userInfo,@JsonProperty("searchQuery") String searchQuery){
+    public Feedback(@JsonProperty("isSatisfied") Boolean isSatisfied,
+                    @JsonProperty("message") String message,
+                    @JsonProperty("userInfo") String userInfo,
+                    @JsonProperty("searchQuery") String searchQuery) {
         this.isSatisfied = isSatisfied;
         this.message = message;
         this.userInfo = userInfo;

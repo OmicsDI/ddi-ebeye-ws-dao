@@ -2,7 +2,6 @@ package uk.ac.ebi.ddi.ebe.ws.dao.model.europmc;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +14,9 @@ public class CitationResponse {
 
     @JsonProperty("resultList")
     public Map<String, Citation[]> citations;
+
+    @JsonProperty("nextCursorMark")
+    public String cursorMark;
 
 
 }

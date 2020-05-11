@@ -7,11 +7,9 @@ import uk.ac.ebi.ddi.ebe.ws.dao.model.common.Term;
 import java.util.Arrays;
 
 /**
- * @author  @ypriverol Yasset Perez-Riverol
+ * @author  ypriverol Yasset Perez-Riverol
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class TermResult {
 
     @JsonProperty("topTerms")
