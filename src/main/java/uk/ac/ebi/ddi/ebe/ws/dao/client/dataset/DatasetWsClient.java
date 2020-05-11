@@ -83,7 +83,7 @@ public class DatasetWsClient extends EbeyeClient {
      * @param size       Number of entries to be retrieve maximum 100.
      * @param facetCount Face count the number of facets by entry.
      * @param sortField       Sortable fields and how to sort data.
-     * @return           A {@List} of entries and the facets included
+     * @return           A {@link java.util.List} of entries and the facets included
      */
     public QueryResult getDatasets(String domainName, String query, String[] fields,
                                    int start, int size, int facetCount, String sortField) {
