@@ -46,7 +46,7 @@ public class PublicationWsClient extends EbeyeClient {
 
             URI uri = builder.build().encode().toUri();
 
-            QueryResult tmp = getRetryTemplate().execute(context -> restTemplate.getForObject(uri, QueryResult.class));
+            QueryResult tmp = restTemplate.getForObject(uri, QueryResult.class);
             queryResult.addResults(tmp);
         }
 
