@@ -32,9 +32,9 @@ public class FacetWsClient extends EbeyeClient {
     public FacetList getFacetEntriesByDomains(String parentdomain, String[] domains, String facetField, int count) {
 
         String[] domainToSearch = domains;
-        if (domains.length > MAX_DOMAIN) {
+        /*if (domains.length > MAX_DOMAIN) {
             domainToSearch = Arrays.copyOfRange(domains, 0, MAX_DOMAIN);
-        }
+        }*/
 
         String domain = String.join(" " + Constans.OR + " ", domainToSearch);
 
