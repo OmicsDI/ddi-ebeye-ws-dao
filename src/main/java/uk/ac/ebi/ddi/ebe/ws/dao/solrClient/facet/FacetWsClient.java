@@ -35,7 +35,7 @@ public class FacetWsClient extends EbeyeClient {
 
         String[] domainToSearch = domains;
         if (domains.length > MAX_DOMAIN) {
-            domainToSearch = Arrays.copyOfRange(domains, 0, MAX_DOMAIN);
+            domainToSearch = Arrays.copyOfRange(domains, 0, domains.length);
         }
 
         String domain = String.join(" " + Constans.OR + " ", domainToSearch);
