@@ -6,12 +6,12 @@
     <parent>
         <groupId>uk.ac.ebi.ddi.maven</groupId>
         <artifactId>ddi-base-master</artifactId>
-        <version>1.1</version>
+        <version>1.7</version>
     </parent>
 
     <groupId>uk.ac.ebi.ddi</groupId>
     <artifactId>ddi-ebe-ws-dao</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.1.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ddi-ebe-ws-dao</name>
 
@@ -19,7 +19,7 @@
         <connection>scm:git:github.com/OmicsDI/ddi-ebeye-ws-dao.git</connection>
         <developerConnection>scm:git:git@github.com:OmicsDI/ddi-ebeye-ws-dao.git</developerConnection>
         <url>https://github.com/OmicsDI/ddi-ebeye-ws-dao.git</url>
-        <tag>ddi-ebeye-ws-dao-1.1.1</tag>
+        <tag>ddi-ebeye-ws-dao-1.1.2</tag>
     </scm>
 
 
@@ -30,19 +30,21 @@
     </properties>
 
     <dependencies>
-
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- logging dependencies -->
@@ -64,17 +66,20 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${jackson.databind.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.databind.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
+            <version>${jackson.databind.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.retry</groupId>
@@ -110,26 +115,28 @@
             </testResource>
         </testResources>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven.checkstyle.version}</version>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <failOnViolation>true</failOnViolation>
-                            <consoleOutput>true</consoleOutput>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
-        </plugins>
+
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
+                <!--<version>${maven.checkstyle.version}</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>checkstyle</id>-->
+                        <!--<phase>validate</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>check</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<failOnViolation>true</failOnViolation>-->
+                            <!--<consoleOutput>true</consoleOutput>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+        <!--</plugins>-->
     </build>
 </project>
