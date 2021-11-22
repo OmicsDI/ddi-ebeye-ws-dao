@@ -19,7 +19,8 @@
         <connection>scm:git:github.com/OmicsDI/ddi-ebeye-ws-dao.git</connection>
         <developerConnection>scm:git:git@github.com:OmicsDI/ddi-ebeye-ws-dao.git</developerConnection>
         <url>https://github.com/OmicsDI/ddi-ebeye-ws-dao.git</url>
-        <tag>ddi-ebe-ws-dao-1.1.3</tag>
+        <tag>HEAD</tag>
+        <!--<tag>ddi-ebe-ws-dao-1.1.3</tag>-->
     </scm>
 
 
