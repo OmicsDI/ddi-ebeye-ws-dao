@@ -30,6 +30,7 @@ public class DomainWsClient extends EbeyeClient {
                 .host(config.getHostName())
                 .path("/ebisearch/ws/rest")
                 .path("/" + domainName)
+                .query("NOT (isprivate:true)")
                 .queryParam("format", "JSON");
         URI uri = builder.build().encode().toUri();
         return restTemplate.getForObject(uri, DomainList.class);
