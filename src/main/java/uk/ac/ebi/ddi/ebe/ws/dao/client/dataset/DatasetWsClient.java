@@ -142,4 +142,24 @@ public class DatasetWsClient extends EbeyeClient {
         URI uri = builder.build().encode().toUri();
         return this.restTemplate.getForObject(uri, SimilarResult.class);
     }
+
+    public SimilarResult getSimilarProjectsByDomain(String domainName, String id, String[] fields, String domain) {
+
+        String finalFields = DDIUtils.getConcatenatedField(fields);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.newInstance()
+                .scheme(config.getProtocol())
+                .host(config.getHostName())
+                .path("/ebisearch/ws/rest")
+                .path("/" + domainName)
+                .path("/entry")
+                .path("/" + id)
+                .path("/morelikethis/" + domain)
+                .queryParam("mltfields", finalFields)
+                .queryParam("excludesets", "omics_stopwords")
+                .queryParam("entryattrs", "score")
+                .queryParam("format", "JSON");
+        URI uri = builder.build().encode().toUri();
+        return this.restTemplate.getForObject(uri, SimilarResult.class);
+    }
 }
